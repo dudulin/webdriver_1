@@ -1,107 +1,50 @@
-import os
+# -- coding: utf-8 --    # 编码规则
+# 若出现 Python编 码问题，可按照以下操作尝试解决
+# import sys # 导入系统
+# reload(sys)
+# sys.setdefaultencoding('utf-8') # 设置规范
 
-from selenium import webdriver
-from selenium.webdriver import Chrome
+# (二)命名规范:
+# 1、包名、模块名、局部变量名、函数名  this_is_var
+
+
 import time
 import pyautogui
+from selenium.webdriver.common.by import By
+
 from tool import get_time
-
-import win32clipboard as w
-import win32con
-
-
-# 修改剪贴板内容
-# 传入需要的值即可修改剪贴板
-def SetClipboard(Str):
-    w.OpenClipboard()
-    w.EmptyClipboard()
-    w.SetClipboardData(win32con.CF_UNICODETEXT, Str)
-    w.CloseClipboard()
+from tool import create_driver
+from tool import url_dict
 
 
-def create_driver(useLocal):
-    options = webdriver.ChromeOptions()
-    print(options, 'options')
-    # 第一步，使用chrome开发者模式
-    # options.add_experimental_option('excludeSwitches',
-    # ['enable-automation']) # 和本地浏览器不兼容
-    # argument = 'user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Safari/537.36'
-    # options.add_argument(argument)
-
-    # options.add_argument('--window-size=600,600')  # 设置窗口大小
-    # options.add_argument('--start-maximized')  # 最大化运行（全屏窗口）,不设置，取元素会报错
-    # options.add_argument('--incognito')  # 无痕模式
-    # options.add_argument('--disable-infobars')  # 去掉chrome正受到自动测试软件的控制的提示
-    # options.add_argument('user-agent="XXXX"')  # 添加请求头
-    # options.add_argument("--proxy-server=http://200.130.123.43:3456")  # 代理服务器访问
-    # options.add_experimental_option('excludeSwitches', ['enable-automation'])  # 开发者模式
-    # options.add_experimental_option("prefs", {"profile.managed_default_content_settings.images": 2})  # 禁止加载图片
-    # options.add_experimental_option('prefs',
-    #                           {'profile.default_content_setting_values': {'notifications': 2}})  # 禁用浏览器弹窗
-    # options.add_argument('blink-settings=imagesEnabled=false')  # 禁止加载图片
-    options.add_argument('lang=zh_CN.UTF-8')  # 设置默认编码为utf-8
-    # o.add_argument('--disable-gpu')  # 这个属性可以规避谷歌的部分bug
-
-    # cmd=> cd C:\Program Files\Google\Chrome\Application
-    # cmd=>chrome.exe --remote-debugging-port=9222 --user-data-dir=“D:\auto”
-    if useLocal:
-        # os.system("cmd")
-        pyautogui.PAUSE = 1  # 意味着所有pyautogui的指令都要暂停0.5
-        path = 'cd C:/Program Files/Google/Chrome/Application'
-        path2 = 'chrome.exe --remote-debugging-port=9222 --user-data-dir=“D:auto”'
-
-        pyautogui.hotkey('win', 'r')
-        pyautogui.hotkey('enter')
-        # pyautogui.hotkey('shift')  # 看实际 避免中文
-        # pyautogui.typewrite(path)
-        # 调用测试
-        SetClipboard(path)  # 使用复制
-        time.sleep(1)
-        pyautogui.hotkey('ctrl', 'v')
-        pyautogui.hotkey('enter')
-        # pyautogui.typewrite(path2)
-        SetClipboard(path2)  # 使用复制
-        pyautogui.hotkey('ctrl', 'v')
-        pyautogui.hotkey('enter')
-        options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")  #
-
-    # 调用原来的浏览器，不用再次登录即可重启
-    chrome_driver = Chrome(options=options)
-
-    # 加载 反 反爬虫 js
-
-    chrome_driver.implicitly_wait(3)  # 隐式 等待
-    with open('stealthFile/stealth.min.js') as f:
-        js = f.read()
-
-    chrome_driver.execute_cdp_cmd(
-        "Page.addScriptToEvaluateOnNewDocument", {
-            "source": js})
-
-    chrome_driver.execute_cdp_cmd(
-        "Page.addScriptToEvaluateOnNewDocument", {
-            "source": """
-                        Object.defineProperty(navigator, 'webdriver', {
-                          get: () => undefined
-                        })
-                      """
-        })
-
-    return chrome_driver
+def find_ele(id):
+    return driver.find_element(By.ID, id)  # find_element_by_id 旧方法 已经 淘汰
+    # driver.find_element(By.XPATH, '//*[@id="cc"]/div/button')
 
 
-useLocal = True
-driver = create_driver(useLocal)
+is_local_web = True
+driver = create_driver(is_local_web)
+driver.get(url_dict['jd'])
 
-driver.get('https://www.jd.com/')
 now = get_time()
 print(now, 'now')
-jd_id = driver.current_window_handle  # 当前窗口 id
 
+jd_id = driver.current_window_handle  # 当前窗口 id
 windows = driver.window_handles  # 所有浏览器窗口
 
 time.sleep(3)
+btn = find_ele('ttbar-navs')
+# btn.rect # {'height': 30, 'width': 77, 'x': 743, 'y': 0}
+rect = btn.rect
+center = pyautogui.center(
+    (rect['x'],
+     rect['y'],
+     rect['width'],
+     rect['height']))  # 入参元组 (a,b,c)
+print(btn.size['width'], 'btn', rect, center)
+
 a = pyautogui.confirm('选择一项', buttons=['关闭', 'title', 'C', 'D'])
+
 if a == '关闭':
     driver.close()
     driver.quit()
