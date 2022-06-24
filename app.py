@@ -1,7 +1,22 @@
+import os
+
 from selenium import webdriver
 from selenium.webdriver import Chrome
 import time
 import pyautogui
+from tool import get_time
+
+import win32clipboard as w
+import win32con
+
+
+# 修改剪贴板内容
+# 传入需要的值即可修改剪贴板
+def SetClipboard(Str):
+    w.OpenClipboard()
+    w.EmptyClipboard()
+    w.SetClipboardData(win32con.CF_UNICODETEXT, Str)
+    w.CloseClipboard()
 
 
 def create_driver(useLocal):
@@ -29,19 +44,24 @@ def create_driver(useLocal):
 
     # cmd=> cd C:\Program Files\Google\Chrome\Application
     # cmd=>chrome.exe --remote-debugging-port=9222 --user-data-dir=“D:\auto”
-
     if useLocal:
+        # os.system("cmd")
         pyautogui.PAUSE = 1  # 意味着所有pyautogui的指令都要暂停0.5
+        path = 'cd C:/Program Files/Google/Chrome/Application'
+        path2 = 'chrome.exe --remote-debugging-port=9222 --user-data-dir=“D:auto”'
 
         pyautogui.hotkey('win', 'r')
         pyautogui.hotkey('enter')
-        # pyautogui.hotkey('shift') # 看实际 避免中文
-        pyautogui.typewrite(
-            'cd C:/Program Files/Google/Chrome/Application'
-        )
+        # pyautogui.hotkey('shift')  # 看实际 避免中文
+        # pyautogui.typewrite(path)
+        # 调用测试
+        SetClipboard(path)  # 使用复制
+        time.sleep(1)
+        pyautogui.hotkey('ctrl', 'v')
         pyautogui.hotkey('enter')
-        pyautogui.typewrite(
-            'chrome.exe --remote-debugging-port=9222 --user-data-dir=“D:\auto”')
+        # pyautogui.typewrite(path2)
+        SetClipboard(path2)  # 使用复制
+        pyautogui.hotkey('ctrl', 'v')
         pyautogui.hotkey('enter')
         options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")  #
 
@@ -74,7 +94,8 @@ useLocal = True
 driver = create_driver(useLocal)
 
 driver.get('https://www.jd.com/')
-
+now = get_time()
+print(now, 'now')
 jd_id = driver.current_window_handle  # 当前窗口 id
 
 windows = driver.window_handles  # 所有浏览器窗口
