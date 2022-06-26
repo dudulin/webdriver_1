@@ -25,13 +25,13 @@ def input_key(key):  # 点击按钮
 def screencap(name='a'):  # 点击按钮
     str = 'screencap -p /sdcard/{}.png'.format(name)
     execute(str)
-    os.system('adb pull /sdcard/{}.png'.format(name))
+    os.system('adb pull /sdcard/{}.png img'.format(name))  # img 是路径
 
 
-set_time = get_time(second=20, microsecond=0)
+set_time = get_time(second=50, microsecond=0)
 now = datetime.datetime.now()
 diff = set_time - now
-sleep(diff.total_seconds())
+# sleep(diff.total_seconds())
 # input_tab(50, 600)
 # input_key(24)
-screencap()  # 数据线 竟然 会影响到，差的数据线 会断开
+screencap('now')  # 数据线 竟然 会影响到，差的数据线 会断开
