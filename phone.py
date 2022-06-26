@@ -1,7 +1,9 @@
 # Android SDK 部署 ==》 手机开发者模式 ==》 正规数据线连接 ==》 python规范 adb代码
 # adb devices   #查看已连接设备  31203622
-import time
+from time import sleep
 import os
+from tool import get_time
+import datetime
 
 
 def execute(cmd):
@@ -25,6 +27,11 @@ def screencap(name='a'):  # 点击按钮
     execute(str)
     os.system('adb pull /sdcard/{}.png'.format(name))
 
+
+set_time = get_time(second=20, microsecond=0)
+now = datetime.datetime.now()
+diff = set_time - now
+sleep(diff.total_seconds())
 # input_tab(50, 600)
 # input_key(24)
-screencap() # 数据线 竟然 会影响到，差的数据线 会断开
+screencap()  # 数据线 竟然 会影响到，差的数据线 会断开
