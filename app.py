@@ -12,9 +12,7 @@ import time
 import pyautogui
 from selenium.webdriver.common.by import By
 
-from tool import get_time
-from tool import create_driver
-from tool import url_dict
+from tool import create_driver, WebDriver, url_dict, get_time
 
 
 def find_ele(id):
@@ -58,3 +56,6 @@ if a == 'C':
 if a == 'D':
     driver.switch_to.window(windows[-1])  # 切换到当前最新打开的窗口
     print(driver.title, 'title')
+
+# kk = WebDriver()
+# kk.test()

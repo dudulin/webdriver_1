@@ -5,6 +5,7 @@ import win32clipboard as w
 import win32con
 from selenium import webdriver
 from selenium.webdriver import Chrome
+from selenium.webdriver.common.by import By
 
 # 修改剪贴板内容
 # 传入需要的值即可修改剪贴板
@@ -112,3 +113,17 @@ url_dict = {
     'bili': 'https://www.bilibili.com/',
     'baidu': 'https://www.baidu.com/'
 }
+
+
+class WebDriver(object):
+    def __init__(self):
+        self.driver = webdriver.Chrome()
+
+    def test(self):
+        self.driver.get(url_dict['baidu'])
+        time.sleep(1)
+        self.driver.find_element(By.ID, 'kw').send_keys('5555')
+        time.sleep(1)
+        self.driver.find_element(By.ID, 'su').click()
+        time.sleep(5)
+        self.driver.quit()

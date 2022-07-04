@@ -18,4 +18,7 @@ find_element(By.ID, 'abc')
 
 ### ctrl + 鼠标左键  ==> 打开模块源码 ！！！
 
+
+pyinstaller -F app.py
+ 必须ignore 文件 否则太多上传不了
 ---
