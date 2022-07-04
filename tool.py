@@ -7,6 +7,9 @@ from selenium import webdriver
 from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
 
+import os
+from time import sleep
+
 # 修改剪贴板内容
 # 传入需要的值即可修改剪贴板
 
@@ -113,6 +116,20 @@ url_dict = {
     'bili': 'https://www.bilibili.com/',
     'baidu': 'https://www.baidu.com/'
 }
+
+
+class CreateAdb():
+    def swipe(self):
+        sleep(2)
+        # 模拟从下往上滑动 x y => x y
+        os.system('adb shell input swipe 900 1200 900 500')
+        sleep(2)
+
+    # 返回上一页面
+    def goback(self):
+        os.system('adb shell input keyevent KEYCODE_BACK')
+        sleep(2)
+        print('退出')
 
 
 class WebDriver(object):

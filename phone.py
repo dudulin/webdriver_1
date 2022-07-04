@@ -6,25 +6,24 @@ from tool import get_time
 import datetime
 
 
-def execute(cmd):
-    adbstr = 'adb shell {}'.format(cmd)
-    print(adbstr, 'adbstr')
-    os.system(adbstr)
+def adb_shell(cmd):
+    adb_str = 'adb shell {}'.format(cmd)
+    os.system(adb_str)
 
 
 def input_tab(x, y):  # 点击
-    str = 'input tap {} {}'.format(x, y)
-    execute(str)
+    str_1 = 'input tap {} {}'.format(x, y)
+    adb_shell(str)
 
 
 def input_key(key):  # 点击按钮
-    str = 'input keyevent {}'.format(key)  # 25
-    execute(str)
+    str_1 = 'input keyevent {}'.format(key)  # 25
+    adb_shell(str_1)
 
 
 def screencap(name='a'):  # 点击按钮
-    str = 'screencap -p /sdcard/{}.png'.format(name)
-    execute(str)
+    str_1 = 'screencap -p /sdcard/{}.png'.format(name)
+    adb_shell(str_1)
     os.system('adb pull /sdcard/{}.png img'.format(name))  # img 是路径
 
 
