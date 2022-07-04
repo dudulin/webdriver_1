@@ -25,8 +25,16 @@ class CreateAdb():
         os.system('adb connect {}'.format(''))
 
     def get_ip(self):
-        message = os.popen('adb shell ifconfig | grep Mask')
+        message = os.popen('adb shell ifconfig "| grep Mask"')  # 10.24.22.209
         return message.read()
+
+    def text(self, text):
+        os.system('adb shell input text {}'.format(text))
+
 
 adb = CreateAdb()
 print(adb.get_size())  # Physical size: 1080x2340
+adb.text('666')
+cc = adb.get_ip()
+
+print(cc)
