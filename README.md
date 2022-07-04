@@ -19,6 +19,9 @@ find_element(By.ID, 'abc')
 ### ctrl + 鼠标左键  ==> 打开模块源码 ！！！
 
 
-pyinstaller -F app.py
- 必须ignore 文件 否则太多上传不了
+# Android SDK 部署 ==》 手机开发者模式 ==》 正规数据线连接 ==》 python规范 adb代码
+
+screencap() # 数据线 竟然 会影响到，差的数据线 会断开
+
+
 ---
