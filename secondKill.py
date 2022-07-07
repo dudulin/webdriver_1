@@ -1,14 +1,18 @@
 import os
+import datetime
 from time import sleep
+from tool import get_time
 
 
 class CreateAdb():
-
     def __init__(self):
+        # c = os.popen('adb devices')
+        print(os.popen('adb devices').read())
         self.ip_list = {
             'wx': 'com.tencent.mm/com.tencent.mm.ui.LauncherUI',
             'yd': 'com.youdao.dict/com.youdao.dict.activity.MainActivity',
-            'mt': 'com.moutai.mall/com.moutai.mall.MainActivity'
+            'mt': 'com.moutai.mall/com.moutai.mall.MainActivity',
+            'tb': 'com.taobao.taobao/com.taobao.tao.TBMainActivity'
         }
 
     def swipe_end(self, limt=1):
@@ -80,6 +84,22 @@ class CreateAdb():
         sleep(1)
         self.stop_app('mt')
 
+    def project_sk(self):
+        # hour = -1, minute = -1, second = -1, microsecond = -1
+        set_time = get_time(second=10, microsecond=800000)
+        time_now = datetime.datetime.now()
+        print(set_time)
+        diff_time = set_time - time_now
+        sleep(diff_time.total_seconds())
+        self.open_app('mt')
+        sleep(5)
+        self.swipe_y(1000, 0)
+        self.click(500, 2000)
+
+        print('操作完成')
+        sleep(1)
+        self.stop_app('mt')
+
 
 adb = CreateAdb()
 # print(adb.get_size())  # Physical size: 1080x2340
@@ -92,5 +112,7 @@ adb = CreateAdb()
 # adb.get_app_ip()
 # com.youdao.dict/com.youdao.dict.activity.MainActivity}
 # adb.project_mt()
-adb.screencap()
+# adb.screencap()
 # uiautomatorviewer.bat  界面控制
+# adb.open_app('tb')
+adb.project_sk()

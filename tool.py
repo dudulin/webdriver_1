@@ -1,8 +1,8 @@
 import datetime
 import time
 import pyautogui
-import win32clipboard as w
-import win32con
+# import win32clipboard as w
+# import win32con
 from selenium import webdriver
 from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
@@ -14,11 +14,11 @@ from time import sleep
 # 传入需要的值即可修改剪贴板
 
 
-def set_clipboard(str):
-    w.OpenClipboard()
-    w.EmptyClipboard()
-    w.SetClipboardData(win32con.CF_UNICODETEXT, str)
-    w.CloseClipboard()
+# def set_clipboard(str):
+#     w.OpenClipboard()
+#     w.EmptyClipboard()
+#     w.SetClipboardData(win32con.CF_UNICODETEXT, str)
+#     w.CloseClipboard()
 
 
 def get_time(hour=-1, minute=-1, second=-1, microsecond=-1):
