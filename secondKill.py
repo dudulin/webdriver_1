@@ -29,12 +29,16 @@ class CreateAdb():
     def wifi_connect(self):
         os.system('adb tcpip 5555')
         sleep(2)
-        os.system('adb connect {}'.format(''))
+        cc = os.popen('adb connect {}'.format('10.98.92.68:5555'))
+        print(cc.read())
 
     def get_ip(self):
         message = os.popen('adb shell ifconfig "| grep Mask"')  # 10.24.22.209
-        return message.read()
+        return print(message.read(), 'ip')  # 10.23.46.142
 
+    def get_ip2(self):
+        message = os.popen('adb shell  netcfg')  # 10.24.22.209
+        return print(message.read(), 'ip')  # 10.23.46.142
     def text(self, text):
         os.system('adb shell input text {}'.format(text))
 
@@ -87,10 +91,11 @@ adb = CreateAdb()
 # cc = adb.get_ip()
 # print(cc)
 # adb.swipe_end(3)
-# adb.open_wx()
+adb.open_wx()
 
 # adb.get_app_ip()
 # com.youdao.dict/com.youdao.dict.activity.MainActivity}
 # adb.project_mt()
-adb.screencap()
+adb.wifi_connect()
+# adb.get_ip2()
 # uiautomatorviewer.bat  界面控制
