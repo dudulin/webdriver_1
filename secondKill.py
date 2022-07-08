@@ -1,14 +1,18 @@
 import os
+import datetime
 from time import sleep
+from tool import get_time
 
 
 class CreateAdb():
-
     def __init__(self):
+        # c = os.popen('adb devices')
+        print(os.popen('adb devices').read())
         self.ip_list = {
             'wx': 'com.tencent.mm/com.tencent.mm.ui.LauncherUI',
             'yd': 'com.youdao.dict/com.youdao.dict.activity.MainActivity',
-            'mt': 'com.moutai.mall/com.moutai.mall.MainActivity'
+            'mt': 'com.moutai.mall/com.moutai.mall.MainActivity',
+            'tb': 'com.taobao.taobao/com.taobao.tao.TBMainActivity'
         }
 
     def swipe_end(self, limt=1):
@@ -29,16 +33,12 @@ class CreateAdb():
     def wifi_connect(self):
         os.system('adb tcpip 5555')
         sleep(2)
-        cc = os.popen('adb connect {}'.format('10.98.92.68:5555'))
-        print(cc.read())
+        os.system('adb connect {}'.format(''))
 
     def get_ip(self):
         message = os.popen('adb shell ifconfig "| grep Mask"')  # 10.24.22.209
-        return print(message.read(), 'ip')  # 10.23.46.142
+        return message.read()
 
-    def get_ip2(self):
-        message = os.popen('adb shell  netcfg')  # 10.24.22.209
-        return print(message.read(), 'ip')  # 10.23.46.142
     def text(self, text):
         os.system('adb shell input text {}'.format(text))
 
@@ -84,6 +84,22 @@ class CreateAdb():
         sleep(1)
         self.stop_app('mt')
 
+    def project_sk(self):
+        # hour = -1, minute = -1, second = -1, microsecond = -1
+        set_time = get_time(second=10, microsecond=800000)
+        time_now = datetime.datetime.now()
+        print(set_time)
+        diff_time = set_time - time_now
+        sleep(diff_time.total_seconds())
+        self.open_app('mt')
+        sleep(5)
+        self.swipe_y(1000, 0)
+        self.click(500, 2000)
+
+        print('操作完成')
+        sleep(1)
+        self.stop_app('mt')
+
 
 adb = CreateAdb()
 # print(adb.get_size())  # Physical size: 1080x2340
@@ -91,11 +107,12 @@ adb = CreateAdb()
 # cc = adb.get_ip()
 # print(cc)
 # adb.swipe_end(3)
-adb.open_wx()
+# adb.open_wx()
 
 # adb.get_app_ip()
 # com.youdao.dict/com.youdao.dict.activity.MainActivity}
 # adb.project_mt()
-adb.wifi_connect()
-# adb.get_ip2()
+# adb.screencap()
 # uiautomatorviewer.bat  界面控制
+# adb.open_app('tb')
+adb.project_sk()
