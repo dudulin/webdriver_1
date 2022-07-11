@@ -33,7 +33,7 @@ class CreateAdb():
     def wifi_connect(self):
         os.system('adb tcpip 5555')
         sleep(2)
-        os.system('adb connect {}'.format(''))
+        os.system('adb connect {}'.format('')) # 10.98.92.23
 
     def get_ip(self):
         message = os.popen('adb shell ifconfig "| grep Mask"')  # 10.24.22.209
@@ -84,6 +84,10 @@ class CreateAdb():
         sleep(1)
         self.stop_app('mt')
 
+    def devices(self):
+        message = os.popen('adb devices')
+        print(message)
+
     def project_sk(self):
         # hour = -1, minute = -1, second = -1, microsecond = -1
         set_time = get_time(second=10, microsecond=800000)
@@ -115,4 +119,7 @@ adb = CreateAdb()
 # adb.screencap()
 # uiautomatorviewer.bat  界面控制
 # adb.open_app('tb')
-adb.project_sk()
+# adb.project_sk()
+adb.devices()
+
+
