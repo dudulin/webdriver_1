@@ -2,7 +2,7 @@ import os
 import datetime
 from time import sleep
 from tool import get_time
-
+import autopep8
 
 class CreateAdb():
     def __init__(self):
@@ -31,9 +31,10 @@ class CreateAdb():
         return size.read()
 
     def wifi_connect(self):
-        os.system('adb tcpip 5555')
+        os.system('adb tcpip 55555') # 192.168.123.4
         sleep(2)
-        os.system('adb connect {}'.format(''))
+        os.system('adb connect {}'.format('192.168.123.4:55555')) # -s 192.168.123.4:55555  # 对手机 的控制
+
 
     def get_ip(self):
         message = os.popen('adb shell ifconfig "| grep Mask"')  # 10.24.22.209
@@ -84,17 +85,22 @@ class CreateAdb():
         sleep(1)
         self.stop_app('mt')
 
-    def project_sk(self):
-        # hour = -1, minute = -1, second = -1, microsecond = -1
-        set_time = get_time(second=10, microsecond=800000)
+    def project_tb(self):
+        # hour = -1, minute = 59, second = 59, microsecond = 800000
+        sleep(1)
+        # self.open_app('tb')
+        sleep(1)
         time_now = datetime.datetime.now()
+        set_time = get_time(second=30, microsecond=800000)
         print(set_time)
         diff_time = set_time - time_now
         sleep(diff_time.total_seconds())
-        self.open_app('mt')
-        sleep(5)
-        self.swipe_y(1000, 0)
-        self.click(500, 2000)
+        times=1
+        while times<100: # True
+            self.click(874, 2224)
+            print(datetime.datetime.now())
+            sleep(0.1)
+            times+=1
 
         print('操作完成')
         sleep(1)
@@ -115,4 +121,5 @@ adb = CreateAdb()
 # adb.screencap()
 # uiautomatorviewer.bat  界面控制
 # adb.open_app('tb')
-adb.project_sk()
+# adb.wifi_connect()
+adb.project_tb()
