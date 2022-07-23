@@ -26,6 +26,8 @@ screencap() # 数据线 竟然 会影响到，差的数据线 会断开
 
 ---
 
+### autopep8 运行出错  是 指向问题  cmd  系统中 安装 autopep8 
+
 手机连接adb 通过wifi 需要 电脑和 手机同在一个 局域网
 电脑：wlan 查看 
 

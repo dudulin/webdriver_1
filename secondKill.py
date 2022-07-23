@@ -4,6 +4,7 @@ from time import sleep
 from tool import get_time
 import autopep8
 
+
 class CreateAdb():
     def __init__(self):
         # c = os.popen('adb devices')
@@ -31,10 +32,10 @@ class CreateAdb():
         return size.read()
 
     def wifi_connect(self):
-        os.system('adb tcpip 55555') # 192.168.123.4
+        os.system('adb tcpip 55555')  # 192.168.123.4
         sleep(2)
-        os.system('adb connect {}'.format('192.168.123.4:55555')) # -s 192.168.123.4:55555  # 对手机 的控制
-
+        # -s 192.168.123.4:55555  # 对手机 的控制
+        os.system('adb connect {}'.format('192.168.123.4:55555'))
 
     def get_ip(self):
         message = os.popen('adb shell ifconfig "| grep Mask"')  # 10.24.22.209
@@ -95,12 +96,12 @@ class CreateAdb():
         print(set_time)
         diff_time = set_time - time_now
         sleep(diff_time.total_seconds())
-        times=1
-        while times<100: # True
+        times = 1
+        while times < 100:  # True
             self.click(874, 2224)
             print(datetime.datetime.now())
             sleep(0.1)
-            times+=1
+            times += 1
 
         print('操作完成')
         sleep(1)
