@@ -3,7 +3,6 @@ import datetime
 from time import sleep
 from tool import get_time
 
-
 class CreateAdb():
     def __init__(self):
         # c = os.popen('adb devices')
@@ -33,7 +32,7 @@ class CreateAdb():
     def wifi_connect(self):
         os.system('adb tcpip 5555')
         sleep(2)
-        os.system('adb connect {}'.format('')) # 10.98.92.23
+        os.system('adb connect {}'.format(''))  # 10.98.92.23
 
     def get_ip(self):
         message = os.popen('adb shell ifconfig "| grep Mask"')  # 10.24.22.209
@@ -121,5 +120,3 @@ adb = CreateAdb()
 # adb.open_app('tb')
 # adb.project_sk()
 adb.devices()
-
-
