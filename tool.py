@@ -20,6 +20,11 @@ from time import sleep
 #     w.SetClipboardData(win32con.CF_UNICODETEXT, str)
 #     w.CloseClipboard()
 
+if __name__ == '__main__':
+    print('程序自身在运行')
+else:
+    print('我来自另一模块', __name__)  # tool
+
 
 def get_time(hour=-1, minute=-1, second=-1, microsecond=-1):
 
