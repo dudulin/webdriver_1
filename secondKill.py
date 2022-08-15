@@ -116,10 +116,10 @@ adb = CreateAdb()
 # adb.get_app_ip()
 # com.youdao.dict/com.youdao.dict.activity.MainActivity}
 # adb.project_mt()
-# adb.screencap()
+adb.screencap()
 # uiautomatorviewer.bat  界面控制
 # adb.open_app('tb')
 # adb.project_sk()
-adb.devices()
+# adb.devices()
 
 
