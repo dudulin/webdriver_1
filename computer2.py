@@ -1,10 +1,8 @@
-from time import sleep
-
-from pynput.keyboard import Key
-from pynput.keyboard import Controller
-import pyautogui
 import datetime
 import random
+from time import sleep
+
+import pyautogui
 
 
 def get_time(hour=-1, minute=-1, second=-1, microsecond=-1):
@@ -30,23 +28,30 @@ def get_time(hour=-1, minute=-1, second=-1, microsecond=-1):
 
 now = datetime.datetime.now()
 
-action_time = get_time(18, 0)
-action_time2 = get_time(19, 0)
+start_time = get_time(17, 15)
+end_time = get_time(18, 30)
 
-diff_time = action_time - now
-
+print('开始')
+diff_time = start_time - now
+print(diff_time)
 # sleep(diff_time.total_seconds())
 flag = True
 while flag:
-    shift = Key.shift
-    keyboard = Controller()
-    keyboard.press(shift)
-    keyboard.release(shift)
+    # shift = Key.shift
+    # keyboard = Controller()
+    # keyboard.press(shift)
+    # keyboard.release(shift)
     print('已经点击了')
+    seq = [-1, 1]
+    x = random.randint(10, 1000) * random.choice(seq)  # random.choice 参数：序列seq 随机其中一个
+    y = random.randint(10, 1000) * random.choice(seq)
+    print(x, y)
     pyautogui.moveRel(
-        random.randint(
-            50, 1000), random.randint(
-            50, 1000), duration=3)
-    sleep(5)
-    # if datetime.datetime.now() > action_time2:
-    #     flag = False
+        x, y, duration=3)
+    sleep(3)
+    if datetime.datetime.now() > end_time:
+        flag = False
+
+
+
+# 观察者实现  1.发布  2.监听
