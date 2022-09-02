@@ -35,3 +35,18 @@ screencap() # 数据线 竟然 会影响到，差的数据线 会断开
     os.system('adb tcpip 55555') # 192.168.123.4
     sleep(2)
     os.system('adb connect {}'.format('192.168.123.4:55555')) #42389
+
+
+
+'''
+    思路：
+    1.observers 收集监听对象的 box 
+    2.add     添加到box 的函数
+    3.remove  移除  box 的函数
+    
+    触发=发布 方法 这里使用了 修改 字符串 来触发 box 里面的函数
+    @property  && @startStr.setter  成对出现，缺少了会报错
+    
+    4.@startStr.setter 触发时候 传入需要的数据 ：self._startStr
+
+'''

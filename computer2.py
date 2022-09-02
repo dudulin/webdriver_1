@@ -35,7 +35,7 @@ print('开始')
 diff_time = start_time - now
 print(diff_time)
 # sleep(diff_time.total_seconds())
-flag = True
+flag = False
 while flag:
     # shift = Key.shift
     # keyboard = Controller()
@@ -43,7 +43,8 @@ while flag:
     # keyboard.release(shift)
     print('已经点击了')
     seq = [-1, 1]
-    x = random.randint(10, 1000) * random.choice(seq)  # random.choice 参数：序列seq 随机其中一个
+    # random.choice 参数：序列seq 随机其中一个
+    x = random.randint(10, 1000) * random.choice(seq)
     y = random.randint(10, 1000) * random.choice(seq)
     print(x, y)
     pyautogui.moveRel(
@@ -53,5 +54,70 @@ while flag:
         flag = False
 
 
-
 # 观察者实现  1.发布  2.监听
+'''
+    思路：
+    1.observers 收集监听对象的 box 
+    2.add     添加到box 的函数
+    3.remove  移除  box 的函数
+    
+    触发=发布 方法 这里使用了 修改 字符串 来触发 box 里面的函数
+    @property  && @startStr.setter  成对出现，缺少了会报错
+    
+    4.@startStr.setter 触发时候 传入需要的数据 ：self._startStr
+
+'''
+
+class Publisher:
+    def __init__(self, name):
+        self.observers = []
+        self._startStr = ''
+
+    @property  # 属性的查询函数
+    def startStr(self):
+        return self._startStr
+
+    @startStr.setter  # 属性的设置函数
+    def startStr(self, value):
+        self._startStr = value
+        for i in self.observers:
+            i.update(self._startStr)
+
+    def add(self, observer):
+        self.observers.append(observer)
+
+    def remove(self, observer):
+        try:
+            self.observers.remove(observer)  # python 数组 列表 remove 函数
+
+        except ValueError:
+            print('移除失败：{}'.format(observer))
+
+    def notify(self):
+        [o.notify(self) for o in self.observers]
+
+
+class Ob(object):
+    def __init__(self, name):
+        self.name = name
+        self.topic = None
+
+    def update(self, topic):
+        self.topic = topic
+        print('{0}更新: {1}'.format(self.name, self.topic))
+
+
+pub = Publisher('xx')
+
+a1 = Ob('a1')
+a2 = Ob('a2')
+a3 = Ob('a3')
+
+pub.add(a1)
+pub.add(a2)
+
+pub.startStr = '开始运行'
+
+pub.remove(a1)
+
+pub.startStr = '开始运行2'
