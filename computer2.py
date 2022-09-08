@@ -35,7 +35,7 @@ print('开始')
 diff_time = start_time - now
 print(diff_time)
 # sleep(diff_time.total_seconds())
-flag = False
+flag = True
 while flag:
     # shift = Key.shift
     # keyboard = Controller()
@@ -44,8 +44,8 @@ while flag:
     print('已经点击了')
     seq = [-1, 1]
     # random.choice 参数：序列seq 随机其中一个
-    x = random.randint(10, 1000) * random.choice(seq)
-    y = random.randint(10, 1000) * random.choice(seq)
+    x = random.randint(10, 100) * random.choice(seq)
+    y = random.randint(10, 100) * random.choice(seq)
     print(x, y)
     pyautogui.moveRel(
         x, y, duration=3)
