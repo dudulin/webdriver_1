@@ -28,21 +28,21 @@ def get_time(hour=-1, minute=-1, second=-1, microsecond=-1):
 
 now = datetime.datetime.now()
 
-start_time = get_time(17, 15)
+start_time = get_time(17, 23)
 end_time = get_time(18, 30)
 
 print('开始')
 diff_time = start_time - now
 print(diff_time)
-# sleep(diff_time.total_seconds())
-flag = False
+sleep(diff_time.total_seconds())
+flag = True
 while flag:
     # shift = Key.shift
     # keyboard = Controller()
     # keyboard.press(shift)
     # keyboard.release(shift)
     print('已经点击了')
-    seq = [-1, 1]
+    seq = [1, 1]
     # random.choice 参数：序列seq 随机其中一个
     x = random.randint(10, 1000) * random.choice(seq)
     y = random.randint(10, 1000) * random.choice(seq)
