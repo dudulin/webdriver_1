@@ -28,24 +28,28 @@ def get_time(hour=-1, minute=-1, second=-1, microsecond=-1):
 
 now = datetime.datetime.now()
 
-start_time = get_time(17, 23)
+start_time = get_time(17, 15)
 end_time = get_time(18, 30)
 
 print('开始')
 diff_time = start_time - now
 print(diff_time)
-sleep(diff_time.total_seconds())
+# sleep(diff_time.total_seconds())
 flag = True
+num = 1
 while flag:
     # shift = Key.shift
     # keyboard = Controller()
     # keyboard.press(shift)
     # keyboard.release(shift)
     print('已经点击了')
-    seq = [1, 1]
+    seq = [-1, 1]
     # random.choice 参数：序列seq 随机其中一个
-    x = random.randint(10, 1000) * random.choice(seq)
-    y = random.randint(10, 1000) * random.choice(seq)
+    x = random.randint(10, 100) * random.choice(seq)
+    y = random.randint(10, 100) * random.choice(seq)
+    num = -num
+    x = 100 * num
+    y = 100 * num
     print(x, y)
     pyautogui.moveRel(
         x, y, duration=3)
@@ -57,16 +61,17 @@ while flag:
 # 观察者实现  1.发布  2.监听
 '''
     思路：
-    1.observers 收集监听对象的 box 
+    1.observers 收集监听对象的 box
     2.add     添加到box 的函数
     3.remove  移除  box 的函数
-    
+
     触发=发布 方法 这里使用了 修改 字符串 来触发 box 里面的函数
     @property  && @startStr.setter  成对出现，缺少了会报错
-    
+
     4.@startStr.setter 触发时候 传入需要的数据 ：self._startStr
 
 '''
+
 
 class Publisher:
     def __init__(self, name):
