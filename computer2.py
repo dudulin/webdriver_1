@@ -53,9 +53,10 @@ while flag:
     print(x, y)
     pyautogui.moveRel(
         x, y, duration=3)
-    sleep(3)
+    sleep(60)
     if datetime.datetime.now() > end_time:
-        flag = False
+        # flag = False
+        pass
 
 
 # 观察者实现  1.发布  2.监听
@@ -98,8 +99,6 @@ class Publisher:
         except ValueError:
             print('移除失败：{}'.format(observer))
 
-    def notify(self):
-        [o.notify(self) for o in self.observers]
 
 
 class Ob(object):
