@@ -4,7 +4,6 @@ from time import sleep
 
 import pyautogui
 
-
 def get_time(hour=-1, minute=-1, second=-1, microsecond=-1):
 
     time_now = datetime.datetime.now()
@@ -38,10 +37,9 @@ print(diff_time)
 flag = True
 num = 1
 while flag:
-    # shift = Key.shift
-    # keyboard = Controller()
-    # keyboard.press(shift)
-    # keyboard.release(shift)
+    pyautogui.keyDown('shift')    # 按下shift
+    pyautogui.keyUp('shift')  # 释放 shift
+
     print('已经点击了')
     seq = [-1, 1]
     # random.choice 参数：序列seq 随机其中一个
@@ -51,8 +49,8 @@ while flag:
     x = 100 * num
     y = 100 * num
     print(x, y)
-    pyautogui.moveRel(
-        x, y, duration=3)
+    # pyautogui.moveRel(
+    #     x, y, duration=3)
     sleep(60)
     if datetime.datetime.now() > end_time:
         # flag = False
@@ -98,7 +96,6 @@ class Publisher:
 
         except ValueError:
             print('移除失败：{}'.format(observer))
-
 
 
 class Ob(object):
