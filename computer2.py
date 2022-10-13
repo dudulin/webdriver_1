@@ -4,6 +4,7 @@ from time import sleep
 
 import pyautogui
 
+
 def get_time(hour=-1, minute=-1, second=-1, microsecond=-1):
 
     time_now = datetime.datetime.now()
@@ -31,6 +32,8 @@ start_time = get_time(17, 15)
 end_time = get_time(18, 30)
 
 print('开始')
+index = 0
+
 diff_time = start_time - now
 print(diff_time)
 # sleep(diff_time.total_seconds())
@@ -48,7 +51,8 @@ while flag:
     num = -num
     x = 100 * num
     y = 100 * num
-    print(x, y)
+    index += 1
+    print(x, y, index)
     # pyautogui.moveRel(
     #     x, y, duration=3)
     sleep(60)
