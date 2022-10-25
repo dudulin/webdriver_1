@@ -8,6 +8,10 @@ from sys import stdout
 import sys
 import keyword  # import 全局 模块
 
+import poplib
+import email.parser
+import email.policy
+
 import tool
 # 从某个模块中导入多个函数,格式为： from somemodule import firstfunc, secondfunc, thirdfunc
 
@@ -188,12 +192,37 @@ class UserAction:  # 用户交互 对实际文件操作
         print(sys.argv, 'argv')
 
 
-action = UserAction()
+# action = UserAction()
 # action.dir(tool)
 # action.sys()
 
 
 # stdout.write('xxxx')
+
+
+conn = poplib.POP3_SSL('pop.163.com', 995)
+
+
+conn.user('xiaolin0903106@163.com')
+conn.pass_('UVIWVTYEGVAVEITQ')  # 注意输入的是邮箱授权码而不是真实 QQ 密码
+
+
+response, maillist, r = conn.list()
+print('响应：', response)
+print('邮件列表：', maillist)
+
+msg = email.parser.BytesParser(policy=email.policy.default).parsebytes(data)
+for part in msg.walk():
+    # multipart 代表邮件内容的容器，无需处理
+    if part.get_content_type().split("/", 1)[0] == 'multipart':
+        continue
+    elif part.get_content_type().split("/", 1)[0] == 'text':
+        print(part.get_content())
+    else:
+        filename = part.get_filename()
+        print(filename)
+        with open(filename, 'wb') as f:
+            f.write(part.get_payload(decode=True))
 
 
 
