@@ -3,6 +3,9 @@
 # CTRL + F10 运行 已经运行过的文件
 # CTRL + ALT + L  格式化文件
 # ALT + J  选择相同内容   vscode 中的  CTRL + SHIFT + D
+from email.utils import formataddr
+from email.mime.text import MIMEText
+import smtplib
 import os.path
 from sys import stdout
 import sys
@@ -196,7 +199,22 @@ action = UserAction()
 # stdout.write('xxxx')
 
 
+email_address = 'xiaolin0903106@163.com'
+smtp = 'smtp.163.com'
+pw = 'pw'
 
+
+def send_email():
+    msg = MIMEText('hello123', 'html', 'utf-8')
+    msg['From'] = formataddr(['深圳市', email_address])
+    msg['Subject'] = '主题1'
+
+    server = smtplib.SMTP_SSL(smtp)
+    server.login(email_address, pw)
+    server.sendmail(email_address, '461584841@qq.com', msg.as_string())
+    server.quit()
+
+send_email()
 '''
 
 
