@@ -3,6 +3,9 @@
 # CTRL + F10 运行 已经运行过的文件
 # CTRL + ALT + L  格式化文件
 # ALT + J  选择相同内容   vscode 中的  CTRL + SHIFT + D
+from email.parser import Parser
+import poplib
+from email.header import Header
 from email.utils import formataddr
 from email.mime.text import MIMEText
 import smtplib
@@ -214,7 +217,56 @@ def send_email():
     server.sendmail(email_address, '461584841@qq.com', msg.as_string())
     server.quit()
 
-send_email()
+
+# send_email()
+
+
+user_email = 'xiaolin0903106@163.com'
+smtp_address = 'smtp.163.com'
+ccc = 'VCTWKONCTJSMSMXE'
+
+
+def get_email():
+    # 创建 SMTP 对象
+    smtp = smtplib.SMTP()
+    # 连接（connect）指定服务器
+    smtp.connect(smtp_address, port=25)
+    # 登录，需要：登录邮箱和授权码
+    print(user_email, pw, 'xxxxx')
+    smtp.login(user=email_address, password=ccc)
+
+    # 构造MIMEText对象，参数为：正文，MIME的subtype，编码方式
+    message = MIMEText('atukoon 邮件发送测试...', 'plain', 'utf-8')
+    message['From'] = Header("fairly", 'utf-8')  # 发件人的昵称
+    message['To'] = Header("jack", 'utf-8')  # 收件人的昵称
+    message['Subject'] = Header('Python SMTP 邮件测试', 'utf-8')  # 定义主题内容
+    print(message)
+
+    smtp.sendmail(
+        from_addr=user_email,
+        to_addrs="461584841@qq.com",
+        msg=message.as_string())
+
+    smtp.quit()
+    print('已经发送')
+
+
+# get_email()
+
+
+def get_email2():
+    server = poplib.POP3('pop.163.com')
+    server.user(email_address)
+    server.pass_(ccc)
+
+    resp, mails, octets = server.list()
+    print(resp, mails, octets, 'xxxxxxxxx')
+
+    server.quit()
+
+get_email2()
+
+
 '''
 
 
